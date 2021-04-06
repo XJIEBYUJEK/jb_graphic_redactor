@@ -2,13 +2,16 @@ package com.example.graphic_redactor
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import kotlin.math.abs
-
+import kotlin.math.max
+import kotlin.math.min
 
 
 class CanvasView(context: Context): View(context) {
@@ -20,6 +23,7 @@ class CanvasView(context: Context): View(context) {
     private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorBackground, null)
     var drawColor = ResourcesCompat.getColor(resources, R.color.black, null)
     var userWidth = 12f
+    var figureFlag = "point"
 
 
     var paint = Paint().apply {
@@ -41,6 +45,9 @@ class CanvasView(context: Context): View(context) {
     }
     fun changeWidth(width: Float){
         userWidth = width
+    }
+    fun changeFigure(figure: String){
+        figureFlag = figure
     }
 
 
@@ -89,23 +96,48 @@ class CanvasView(context: Context): View(context) {
 
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
 
+    var left = 0f
+    var right = 0f
+    var bottom = 0f
+    var top = 0f
+
     private fun touchMove() {
         val dx = abs(motionTouchEventX - currentX)
         val dy = abs(motionTouchEventY - currentY)
-        if (dx >= touchTolerance || dy >= touchTolerance) {
+        val startX = currentX
+        val startY = currentY
+        left = min(startX, motionTouchEventX)
+        top = max(startY, motionTouchEventY)
+        right = max(startX, motionTouchEventX)
+        bottom = min(startY, motionTouchEventY)
+        if (figureFlag == "point"){
+                if (dx >= touchTolerance || dy >= touchTolerance) {
 
-            path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
-            currentX = motionTouchEventX
-            currentY = motionTouchEventY
-
-            extraCanvas.drawPath(path, paint)
-
+                    path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+                    currentX = motionTouchEventX
+                    currentY = motionTouchEventY
+                    extraCanvas.drawPath(path, paint)
+                    invalidate()
+                }
         }
-        invalidate()
     }
 
 
     private fun touchUp() {
+        when(figureFlag){
+            "oval" -> {
+                extraCanvas.drawOval(left, top, right, bottom, paint)
+                invalidate()
+            }
+            "rect" -> {
+                extraCanvas.drawRect(left, top, right, bottom, paint)
+                invalidate()
+            }
+            "line" -> {
+                extraCanvas.drawLine(left, top, right, bottom, paint)
+                invalidate()
+            }
+        }
         path.reset()
     }
 

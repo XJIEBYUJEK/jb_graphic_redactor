@@ -4,7 +4,6 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="Options"
         app:showAsAction="always" />
 
@@ -14,57 +13,82 @@
         app:showAsAction="never"/>
     <item android:title="Colors">
         <menu>
-            <item
-                android:id="@+id/green"
-                android:orderInCategory="100"
-                android:title="Green"
-                app:showAsAction="never" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/green"
+                    android:title="Green"
+                    app:showAsAction="never" />
 
-            <item
-                android:id="@+id/blue"
-                android:orderInCategory="100"
-                android:title="Blue"
-                app:showAsAction="never" />
+                <item
+                    android:id="@+id/blue"
+                    android:title="Blue"
+                    app:showAsAction="never" />
 
-            <item
-                android:id="@+id/red"
-                android:orderInCategory="100"
-                android:title="Red"
-                app:showAsAction="never" />
+                <item
+                    android:id="@+id/red"
+                    android:title="Red"
+                    app:showAsAction="never" />
 
-            <item
-                android:id="@+id/black"
-                android:orderInCategory="100"
-                android:title="Black"
-                app:showAsAction="never" />
+                <item
+                    android:id="@+id/black"
+                    android:title="Black"
+                    app:showAsAction="never"
+                    android:checked="true"/>
+            </group>
         </menu>
     </item>
     <item android:title="Thickness">
         <menu>
-            <item
-                android:id="@+id/thin"
-                android:orderInCategory="100"
-                android:title="Thin"
-                app:showAsAction="never" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/thin"
+                    android:title="Thin"
+                    app:showAsAction="never" />
 
-            <item
-                android:id="@+id/normal"
-                android:orderInCategory="100"
-                android:title="Normal"
-                app:showAsAction="never" />
+                <item
+                    android:id="@+id/normal"
+                    android:title="Normal"
+                    app:showAsAction="never"
+                    android:checked="true"/>
 
-            <item
-                android:id="@+id/wide"
-                android:orderInCategory="100"
-                android:title="Wide"
-                app:showAsAction="never" />
+                <item
+                    android:id="@+id/wide"
+                    android:title="Wide"
+                    app:showAsAction="never" />
+            </group>
         </menu>
     </item>
     <item
         android:id="@+id/eraser"
-        android:orderInCategory="100"
         android:title="Eraser"
         app:showAsAction="never" />
+    <item android:title="Figures">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/line"
+                    android:title="Line"
+                    app:showAsAction="never" />
+
+                <item
+                    android:id="@+id/rect"
+                    android:title="Rectangle"
+                    app:showAsAction="never" />
+
+                <item
+                    android:id="@+id/oval"
+                    android:title="Oval"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/point"
+                    android:title="Normal"
+                    app:showAsAction="never"
+                    android:checked="true"
+                    />
+            </group>
+        </menu>
+    </item>
+
 
 
 
