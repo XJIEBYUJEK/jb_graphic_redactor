@@ -2,6 +2,7 @@ package com.example.graphic_redactor
 
 import android.content.Context
 import android.graphics.*
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -12,27 +13,28 @@ private const val STROKE_WIDTH = 12f
 
 class CanvasView(context: Context): View(context) {
 
-    // for caching
+
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
 
     private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorBackground, null)
-    private val drawColor = ResourcesCompat.getColor(resources, R.color.colorPaint, null)
+    var drawColor = ResourcesCompat.getColor(resources, R.color.black, null)
 
-    // Кисть для рисования
-    private var paint = Paint().apply {
+
+    var paint = Paint().apply {
         color = drawColor
-        // Smooths out edges of what is drawn without affecting shape.
         isAntiAlias = true
-        // Dithering affects how colors with higher-precision than the device are down-sampled.
         isDither = true
-        style = Paint.Style.STROKE // default: FILL
-        strokeJoin = Paint.Join.ROUND // default: MITER
-        strokeCap = Paint.Cap.ROUND // default: BUTT
-        strokeWidth = STROKE_WIDTH // default: Hairline-width (really thin)
+        style = Paint.Style.STROKE
+        strokeJoin = Paint.Join.ROUND
+        strokeCap = Paint.Cap.ROUND
+        strokeWidth = STROKE_WIDTH
     }
 
-
+    fun clear() {
+        extraCanvas.drawColor(backgroundColor)
+        invalidate()
+    }
     private var path = Path()
 
     private var motionTouchEventX = 0f
@@ -47,7 +49,10 @@ class CanvasView(context: Context): View(context) {
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
         extraCanvas.drawColor(backgroundColor)
+
     }
+
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -59,6 +64,7 @@ class CanvasView(context: Context): View(context) {
     private var currentY = 0f
 
     private fun touchStart() {
+        paint.color = drawColor
         path.reset()
         path.moveTo(motionTouchEventX, motionTouchEventY)
         currentX = motionTouchEventX
@@ -71,19 +77,19 @@ class CanvasView(context: Context): View(context) {
         val dx = abs(motionTouchEventX - currentX)
         val dy = abs(motionTouchEventY - currentY)
         if (dx >= touchTolerance || dy >= touchTolerance) {
-            // QuadTo() adds a quadratic bezier from the last point,
-            // approaching control point (x1,y1), and ending at (x2,y2).
+
             path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
             currentX = motionTouchEventX
             currentY = motionTouchEventY
-            // Draw the path in the extra bitmap to cache it.
+
             extraCanvas.drawPath(path, paint)
+
         }
         invalidate()
     }
 
+
     private fun touchUp() {
-        // Reset the path so it doesn't get drawn again.
         path.reset()
     }
 

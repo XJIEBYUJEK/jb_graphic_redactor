@@ -1,43 +1,39 @@
 package com.example.graphic_redactor
 
+
 import android.os.Bundle
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 
-
-
-
 class MainActivity : AppCompatActivity() {
+
+    private var canvasView: CanvasView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val canvasView = CanvasView(this)
+        canvasView = CanvasView(this)
         setContentView(canvasView)
     }
-}
-/*
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        //val canvasView = CanvasView(this)
 
-        val clearButton =  findViewById<Button>(R.id.clear)
-
-        if (savedInstanceState == null){
-            supportFragmentManager.beginTransaction().add(
-                    R.id.frameLayout,
-                    CanvasFragment()
-            ).commit()
-        }
-        clearButton.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(
-                    R.id.frameLayout,
-                    UpgradesFragment()
-            ).commit()
-        }
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
-}*/
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //val canvasView = CanvasView(this)
+        when (item.itemId) {
+            R.id.clear -> {
+                canvasView?.clear()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+}
+
