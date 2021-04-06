@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,38 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.clear -> {
                 canvasView?.clear()
+                return true
+            }
+            R.id.green -> {
+                canvasView?.changeColor(ResourcesCompat.getColor(resources, R.color.green, null))
+                return true
+            }
+            R.id.red -> {
+                canvasView?.changeColor(ResourcesCompat.getColor(resources, R.color.red, null))
+                return true
+            }
+            R.id.blue -> {
+                canvasView?.changeColor(ResourcesCompat.getColor(resources, R.color.blue, null))
+                return true
+            }
+            R.id.black -> {
+                canvasView?.changeColor(ResourcesCompat.getColor(resources, R.color.black, null))
+                return true
+            }
+            R.id.eraser -> {
+                canvasView?.changeColor(ResourcesCompat.getColor(resources, R.color.white, null))
+                return true
+            }
+            R.id.thin -> {
+                canvasView?.changeWidth(6f)
+                return true
+            }
+            R.id.normal -> {
+                canvasView?.changeWidth(12f)
+                return true
+            }
+            R.id.wide -> {
+                canvasView?.changeWidth(24f)
                 return true
             }
         }

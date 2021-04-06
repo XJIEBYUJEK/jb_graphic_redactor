@@ -9,7 +9,7 @@ import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import kotlin.math.abs
 
-private const val STROKE_WIDTH = 12f
+
 
 class CanvasView(context: Context): View(context) {
 
@@ -19,6 +19,7 @@ class CanvasView(context: Context): View(context) {
 
     private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorBackground, null)
     var drawColor = ResourcesCompat.getColor(resources, R.color.black, null)
+    var userWidth = 12f
 
 
     var paint = Paint().apply {
@@ -28,13 +29,23 @@ class CanvasView(context: Context): View(context) {
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND
-        strokeWidth = STROKE_WIDTH
+        strokeWidth = userWidth
     }
 
     fun clear() {
         extraCanvas.drawColor(backgroundColor)
         invalidate()
     }
+    fun changeColor(color: Int){
+        drawColor = color
+    }
+    fun changeWidth(width: Float){
+        userWidth = width
+    }
+
+
+
+
     private var path = Path()
 
     private var motionTouchEventX = 0f
@@ -64,7 +75,12 @@ class CanvasView(context: Context): View(context) {
     private var currentY = 0f
 
     private fun touchStart() {
-        paint.color = drawColor
+        paint.apply {
+            color = drawColor
+            strokeWidth = userWidth
+            if (drawColor == ResourcesCompat.getColor(resources, R.color.white, null))
+                strokeWidth = 80f
+        }
         path.reset()
         path.moveTo(motionTouchEventX, motionTouchEventY)
         currentX = motionTouchEventX

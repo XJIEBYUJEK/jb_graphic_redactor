@@ -3,8 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Options"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/clear"
         android:title="Сlear"
         app:showAsAction="never"/>
+    <item android:title="Colors">
+        <menu>
+            <item
+                android:id="@+id/green"
+                android:orderInCategory="100"
+                android:title="Green"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/blue"
+                android:orderInCategory="100"
+                android:title="Blue"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/red"
+                android:orderInCategory="100"
+                android:title="Red"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/black"
+                android:orderInCategory="100"
+                android:title="Black"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item android:title="Thickness">
+        <menu>
+            <item
+                android:id="@+id/thin"
+                android:orderInCategory="100"
+                android:title="Thin"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/normal"
+                android:orderInCategory="100"
+                android:title="Normal"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/wide"
+                android:orderInCategory="100"
+                android:title="Wide"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/eraser"
+        android:orderInCategory="100"
+        android:title="Eraser"
+        app:showAsAction="never" />
+
+
 
 </menu>
