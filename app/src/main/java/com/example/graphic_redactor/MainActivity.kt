@@ -4,7 +4,6 @@ package com.example.graphic_redactor
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //val canvasView = CanvasView(this)
         when (item.itemId) {
             R.id.clear -> {
                 canvasView?.clear()

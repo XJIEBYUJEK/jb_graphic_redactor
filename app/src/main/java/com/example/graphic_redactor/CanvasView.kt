@@ -2,9 +2,6 @@ package com.example.graphic_redactor
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RectShape
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -24,7 +21,6 @@ class CanvasView(context: Context): View(context) {
     var drawColor = ResourcesCompat.getColor(resources, R.color.black, null)
     var userWidth = 12f
     var figureFlag = "point"
-
 
     var paint = Paint().apply {
         color = drawColor
@@ -50,15 +46,9 @@ class CanvasView(context: Context): View(context) {
         figureFlag = figure
     }
 
-
-
-
     private var path = Path()
-
     private var motionTouchEventX = 0f
     private var motionTouchEventY = 0f
-
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -67,10 +57,7 @@ class CanvasView(context: Context): View(context) {
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
         extraCanvas.drawColor(backgroundColor)
-
     }
-
-
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -121,7 +108,6 @@ class CanvasView(context: Context): View(context) {
                 }
         }
     }
-
 
     private fun touchUp() {
         when(figureFlag){
